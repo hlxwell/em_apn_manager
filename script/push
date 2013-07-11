@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require "bundler/setup"
+require 'redis'
+require 'json'
+require 'em_apn_manager'
+
+ENV["APN_KEY"]  ||= File.join(File.dirname(__FILE__),  "..", "certs", "key.pem")
+ENV["APN_CERT"] ||= File.join(File.dirname(__FILE__), "..", "certs", "cert.pem")
+
+TOKEN = "fe9515ba7556cfdcfca6530235c95dff682fac765838e749a201a7f6cf3792e6"
+
+EM.run do
+  $redis = Redis.new
+
+  EM.add_periodic_timer(1) {
+    $redis.publish "push-notification", {
+      key: File.read(ENV["APN_KEY"]),
+      cert: File.read(ENV["APN_CERT"]),
+      token: TOKEN,
+      message: "Hello User##{rand * 10000}."
+    }.to_json
+  }
+end
