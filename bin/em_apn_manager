@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'em_apn_manager'
+
+################################################
+
+EM::ApnManager.logger.info("Starting APN Manager")
+
+EM.run do
+  EM::ApnManager::Manager.run
+end

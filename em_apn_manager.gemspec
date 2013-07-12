@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "eventmachine", ">= 1.0.0.beta.3"
   s.add_dependency "yajl-ruby",    ">= 0.8.2"
-  s.add_dependency "redis",        ">= 3.0.4"
+  s.add_dependency "redis",        ">= 3.0.1"
   s.add_dependency "em-hiredis",   ">= 0.2.1"
   s.add_development_dependency "rspec", "~> 2.6.0"
 end
