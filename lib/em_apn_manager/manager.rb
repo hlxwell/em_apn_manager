@@ -1,6 +1,8 @@
 # encoding: UTF-8
 
 require 'base64'
+require 'yajl'
+require 'yajl/json_gem'
 require 'em-hiredis'
 require "em_apn_manager/client"
 require "em_apn_manager/notification"
@@ -16,6 +18,7 @@ module EventMachine
         end
       end # end of run
 
+      # options = {gateway, port}
       def run options = {}
         @redis = EM::Hiredis.connect
 
@@ -27,8 +30,9 @@ module EventMachine
 
           # Create client connection if doesn't exist in pool.
           if client.nil?
-            client = EM::ApnManager::Client.new(options.merge({cert: cert_filename, key: key_filename}))
-            $connection_pool[cert_filename] = client # Store the connection to pool
+            client = EM::ApnManager::Client.new(options.merge!({cert: cert_filename, key: key_filename}))
+            # Store the connection to pool
+            $connection_pool[cert_filename] = client
           end
 
           notification = EM::ApnManager::Notification.new(msg_hash["token"], :alert => msg_hash["message"])

@@ -1,12 +1,22 @@
+require 'thor'
 require 'eventmachine'
-require 'em-hiredis'
-require 'yajl'
-require 'yajl/json_gem'
-require 'base64'
-require "em_apn_manager/client"
-require "em_apn_manager/connection"
-require "em_apn_manager/notification"
-require "em_apn_manager/logger"
-require "em_apn_manager/response"
-require "em_apn_manager/error_response"
-require "em_apn_manager/manager"
+require 'em_apn_manager/logger'
+if defined?(Rails)
+  require 'em_apn_manager/engine'
+end
+
+module EventMachine
+  module ApnManager
+    extend self
+    attr_accessor :config
+    def push_notification options = {}
+      # FIXME Check options
+      $apn_manager_redis.publish "push-notification", {
+        key: options[:key],
+        cert: options[:cert],
+        token: options[:token],
+        message: options[:message]
+      }.to_json
+    end
+  end
+end

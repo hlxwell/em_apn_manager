@@ -7,6 +7,7 @@ module EventMachine
     class Client
       SANDBOX_GATEWAY    = "gateway.sandbox.push.apple.com"
       PRODUCTION_GATEWAY = "gateway.push.apple.com"
+      TEST_GATEWAY       = "127.0.0.1"
       PORT               = 2195
 
       attr_reader :gateway, :port, :key, :cert, :connection, :error_callback, :close_callback, :open_callback
@@ -24,7 +25,14 @@ module EventMachine
         @port = options[:port] || PORT
 
         @gateway = options[:gateway] || ENV["APN_GATEWAY"]
-        @gateway ||= (ENV["APN_ENV"] == "production") ? PRODUCTION_GATEWAY : SANDBOX_GATEWAY
+        @gateway ||=  case ENV["APN_ENV"]
+                      when "test"
+                        TEST_GATEWAY
+                      when "development"
+                        SANDBOX_GATEWAY
+                      when "production"
+                        PRODUCTION_GATEWAY
+                      end
 
         @connection = nil
       end
