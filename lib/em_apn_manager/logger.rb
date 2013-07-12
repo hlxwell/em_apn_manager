@@ -1,4 +1,4 @@
-module EM
+module EventMachine
   module ApnManager
     def self.logger
       @logger ||= Logger.new(STDOUT)

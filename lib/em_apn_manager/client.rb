@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module EM
+module EventMachine
   module ApnManager
     class Client
       SANDBOX_GATEWAY    = "gateway.sandbox.push.apple.com"

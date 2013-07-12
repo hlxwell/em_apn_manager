@@ -4,7 +4,7 @@ require "em_apn_manager/version"
 
 Gem::Specification.new do |s|
   s.name        = "em_apn_manager"
-  s.version     = EM::ApnManager::VERSION
+  s.version     = EventMachine::ApnManager::VERSION
   s.authors     = ["Michael He"]
   s.email       = ["hlxwel@gmail.com"]
   s.homepage    = "http://hlxwell.github.io"

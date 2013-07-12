@@ -1,4 +1,4 @@
-module EM
+module EventMachine
   module ApnManager
 
     class LogMessage
