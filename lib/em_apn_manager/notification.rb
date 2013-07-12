@@ -2,7 +2,6 @@
 
 module EventMachine
   module ApnManager
-
     class Notification
       DATA_MAX_BYTES    = 256
 
@@ -54,7 +53,6 @@ module EventMachine
           @aps["alert"] = @aps["alert"][0..-2]
         end
       end
-
     end
   end
 end

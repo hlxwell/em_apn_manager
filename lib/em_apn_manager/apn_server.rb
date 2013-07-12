@@ -3,7 +3,7 @@
 # Mock Apple push server for testing.
 module EventMachine
   module ApnManager
-    module Server
+    module ApnServer
       def post_init
         EM::ApnManager.logger.info("Received a new connection")
         @data  = ""

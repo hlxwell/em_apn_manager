@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require "em_apn_manager/connection"
+
 module EventMachine
   module ApnManager
     class Client

@@ -1,6 +1,9 @@
+# encoding: UTF-8
+
+require "em_apn_manager/error_response"
+
 module EventMachine
   module ApnManager
-
     class Connection < EM::Connection
       attr_reader :client
 

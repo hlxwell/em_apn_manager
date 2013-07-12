@@ -1,7 +1,14 @@
+# encoding: UTF-8
+
+require 'base64'
+require 'em-hiredis'
+require "em_apn_manager/client"
+require "em_apn_manager/notification"
+
 module EventMachine
   module ApnManager
     class Manager
-      $connection_pool = {} # Connection Pool
+      $connection_pool = {}
 
       def self.run options = {}
         self.new.tap do |manager|
@@ -40,6 +47,8 @@ module EventMachine
       private
 
       def save_cert_to_file cert_content
+        # TODO, should store Rails.root/tmp/certs and this folder should be protected.
+        FileUtils.mkdir_p "certs"
         filename = Base64.encode64(cert_content)[0..50]
         filename = File.join "certs", filename
         return filename if File.exist?(filename)
