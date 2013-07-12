@@ -2,13 +2,11 @@ require 'eventmachine'
 require 'em-hiredis'
 require 'yajl'
 require 'yajl/json_gem'
-require 'logger'
 require 'base64'
 require "em_apn_manager/client"
 require "em_apn_manager/connection"
 require "em_apn_manager/notification"
-require "em_apn_manager/log_message"
+require "em_apn_manager/logger"
 require "em_apn_manager/response"
 require "em_apn_manager/error_response"
-require "em_apn_manager/logger"
 require "em_apn_manager/manager"

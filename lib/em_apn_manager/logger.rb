@@ -1,3 +1,5 @@
+require 'logger'
+
 module EventMachine
   module ApnManager
     def self.logger

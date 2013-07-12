@@ -1,6 +1,5 @@
 module EventMachine
   module ApnManager
-
     class ErrorResponse
       DESCRIPTION = {
         0   => "No errors encountered",

@@ -1,6 +1,5 @@
 module EventMachine
   module ApnManager
-
     class Response
       def initialize(notification)
         @notification = notification
