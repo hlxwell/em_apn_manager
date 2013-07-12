@@ -41,9 +41,10 @@ module EventMachine
 
       def save_cert_to_file cert_content
         filename = Base64.encode64(cert_content)[0..50]
+        filename = File.join "certs", filename
         return filename if File.exist?(filename)
 
-        File.open "certs/#{filename}", "w+" do |f|
+        File.open filename, "w+" do |f|
           f.write cert_content
         end
         filename
