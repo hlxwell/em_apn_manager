@@ -9,15 +9,15 @@ Steps to use this gem.
 2. Run `bundle exec em_apn_manager -e development`
 3. Put this in your code ```ruby
 EM::ApnManager.push_notification({
-  cert: File.read(ENV["APNS_CERT"]),
-  key: File.read(ENV["APNS_KEY"]),
+  cert: READ_YOUR_CERT_CONTENT,
   token: DEVICE_TOKEN,
-  message: "Hello User##{rand * 10000}."
+  message: YOUR_MESSAGE
 })
 ```
 
 Generate pem from p12
 ==================
+You have to convert p12 format to pem format by below command line.
 `openssl pkcs12 -in cert.p12 -out cert.pem -nodes -clcerts`
 
 TO DOs
