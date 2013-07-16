@@ -18,6 +18,8 @@ module EventMachine
       end
 
       def post_init
+        EM::ApnManager.logger.info("Connecting...")
+
         start_tls(
           :private_key_file => client.key,
           :cert_chain_file  => client.cert,
@@ -27,6 +29,7 @@ module EventMachine
 
       def connection_completed
         EM::ApnManager.logger.info("Connection completed")
+
         client.open_callback.call if client.open_callback
       end
 
@@ -34,16 +37,13 @@ module EventMachine
         data_array = data.unpack("ccN")
         error_response = ErrorResponse.new(*data_array)
         EM::ApnManager.logger.warn(error_response.to_s)
-
-        if client.error_callback
-          client.error_callback.call(error_response)
-        end
+        client.error_callback.call(error_response) if client.error_callback
       end
 
       def unbind
-        @disconnected = true
-
         EM::ApnManager.logger.info("Connection closed")
+
+        @disconnected = true
         client.close_callback.call if client.close_callback
       end
     end

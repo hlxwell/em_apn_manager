@@ -9,6 +9,7 @@ module EventMachine
   module ApnManager
     extend self
     attr_accessor :config
+
     def push_notification options = {}
       # FIXME Check options
       $apn_manager_redis.publish "push-notification", {

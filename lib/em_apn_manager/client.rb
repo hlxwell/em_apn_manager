@@ -25,13 +25,15 @@ module EventMachine
         @port = options[:port] || PORT
 
         @gateway = options[:gateway] || ENV["APN_GATEWAY"]
-        @gateway ||=  case ENV["APN_ENV"]
+        @gateway ||=  case ENV["APN_ENV"] || ENV["RAILS_ENV"]
                       when "test"
                         TEST_GATEWAY
                       when "development"
                         SANDBOX_GATEWAY
                       when "production"
                         PRODUCTION_GATEWAY
+                      else
+                        TEST_GATEWAY
                       end
 
         @connection = nil
