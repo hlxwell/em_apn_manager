@@ -39,6 +39,7 @@ module EventMachine
           end
 
           ### send message directly if connection was connected.
+          ### TODO you can bind on_close, on_open, on_error events.
           notification = EM::ApnManager::Notification.new(msg_hash["token"], :alert => msg_hash["message"])
           if client.connected?
             client.deliver(notification)

@@ -23,9 +23,9 @@ module EventMachine
         @key  = options[:key]  || ENV["APN_KEY"]
         @cert = options[:cert] || ENV["APN_CERT"]
         @port = options[:port] || PORT
-
+        @environment = options[:env]
         @gateway = options[:gateway] || ENV["APN_GATEWAY"]
-        @gateway ||=  case ENV["APN_ENV"] || ENV["RAILS_ENV"]
+        @gateway ||=  case @environment
                       when "test"
                         TEST_GATEWAY
                       when "development"
@@ -35,7 +35,6 @@ module EventMachine
                       else
                         TEST_GATEWAY
                       end
-
         @connection = nil
       end
 

@@ -32,10 +32,8 @@ module EventMachine
         end
 
         # read the environment var.
-        @environment = "development"
-        if %w{test development production}.include? options[:environment]
-          @environment = ENV[:RAILS_ENV] || ENV[:APN_ENV]
-        end
+        @environment = "test"
+        @environment = options[:environment] if %w{test development production}.include? options[:environment]
 
         # create redis connection
         $apn_manager_redis = Redis.new EM::ApnManager.config[@environment] || { host:"127.0.0.1", port:6379 }
@@ -46,7 +44,7 @@ module EventMachine
       # option :pid_file,     :aliases => ["-p"], :type => :string
       def server
         EM::ApnManager.logger.info("Starting APN Manager")
-        EM.run { EM::ApnManager::Manager.run }
+        EM.run { EM::ApnManager::Manager.run env: @environment }
       end
 
       ### For Testing ##################################################
