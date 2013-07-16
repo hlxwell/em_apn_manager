@@ -10,7 +10,7 @@ module EventMachine
 
         start_tls(
           :cert_chain_file  => ENV["APN_CERT"],
-          :private_key_file => ENV["APN_KEY"],
+          :private_key_file => ENV["APN_CERT"],
           :verify_peer      => false
         )
       end

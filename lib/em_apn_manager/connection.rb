@@ -21,7 +21,7 @@ module EventMachine
         EM::ApnManager.logger.info("Connecting...")
 
         start_tls(
-          :private_key_file => client.key,
+          :private_key_file => client.cert,
           :cert_chain_file  => client.cert,
           :verify_peer      => false
         )

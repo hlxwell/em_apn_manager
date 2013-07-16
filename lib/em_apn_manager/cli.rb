@@ -9,7 +9,6 @@ require 'em_apn_manager'
 require "em_apn_manager/manager"
 require "em_apn_manager/apn_server"
 
-ENV["APN_KEY"]  ||= File.join(File.dirname(__FILE__), "..", "..", "certs", "key.pem")
 ENV["APN_CERT"] ||= File.join(File.dirname(__FILE__), "..", "..", "certs", "cert.pem")
 
 $apn_manager_redis = nil

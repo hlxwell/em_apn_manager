@@ -10,7 +10,7 @@ module EventMachine
       TEST_GATEWAY       = "127.0.0.1"
       PORT               = 2195
 
-      attr_reader :gateway, :port, :key, :cert, :connection, :error_callback, :close_callback, :open_callback
+      attr_reader :gateway, :port, :cert, :connection, :error_callback, :close_callback, :open_callback
 
       # A convenience method for creating and connecting.
       def self.connect(options = {})
@@ -20,7 +20,6 @@ module EventMachine
       end
 
       def initialize(options = {})
-        @key  = options[:key]  || ENV["APN_KEY"]
         @cert = options[:cert] || ENV["APN_CERT"]
         @port = options[:port] || PORT
         @environment = options[:env]
