@@ -16,6 +16,10 @@ EM::ApnManager.push_notification({
 })
 ```
 
+Generate pem from p12
+==================
+`openssl pkcs12 -in cert.p12 -out cert.pem -nodes -clcerts`
+
 TO DOs
 ==================
 1. Implement running `bundle exec em_apn_manager -e development` in background, support `-daemon` and `-pid_file`
