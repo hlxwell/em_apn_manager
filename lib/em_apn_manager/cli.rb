@@ -48,15 +48,15 @@ module EventMachine
 
       ### For Testing ##################################################
       desc "push_test_message", "Push test messages to server."
+      # if message is DISCONNECT, mock apns will disconnect.
       def push_test_message
-        EM::ApnManager.push_notification({
-          cert: File.read(ENV["APN_CERT"]),
-          key: File.read(ENV["APN_KEY"]),
-          token: "fe9515ba7556cfdcfca6530235c95dff682fac765838e749a201a7f6cf3792e6",
-          # if it's DISCONNECT, mock apns will disconnect.
-          # message: "DISCONNECT"
-          message: "Hello User##{rand * 10000}."
-        })
+        10.times do |i|
+          EM::ApnManager.push_notification({
+            cert: File.read(ENV["APN_CERT"]),
+            token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B","D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
+            message: "Hahahaha I am going to spam you. #{i}-#{rand * 100}"
+          })
+        end
       end
 
       desc "mock_apn_server", "Start a mock apple APNS Server."
