@@ -3,9 +3,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem "annotate"
-  gem "bluecloth"
-  gem "yard"
+  gem "shoulda"
+  gem "rdoc"
   gem "bundler"
-  gem "jeweler"
+  gem "jeweler", "~> 1.8.4"
 end
