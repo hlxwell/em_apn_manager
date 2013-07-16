@@ -16,7 +16,7 @@ require 'rake/testtask'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "mail_engine"
+  gem.name = "em_apn_manager"
   gem.homepage = "http://github.com/hlxwell/em_apn_manager"
   gem.license = "MIT"
   gem.summary = %Q{EventMachine multiple APNs connections Management Solution. You can use multiple cert and connection to apple's APNs server.}
