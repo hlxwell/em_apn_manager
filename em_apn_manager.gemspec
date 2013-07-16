@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "em_apn_manager"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael He"]
@@ -94,6 +94,11 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.6.0"])
+      s.add_development_dependency(%q<shoulda>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.16"])
       s.add_runtime_dependency(%q<eventmachine>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<yajl-ruby>, [">= 0.8.2"])
@@ -137,6 +142,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bluecloth>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.6.0"])
+      s.add_dependency(%q<shoulda>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<rspec>, ["~> 2.6.0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
@@ -191,6 +201,11 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bluecloth>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.6.0"])
+    s.add_dependency(%q<shoulda>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<rspec>, ["~> 2.6.0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
