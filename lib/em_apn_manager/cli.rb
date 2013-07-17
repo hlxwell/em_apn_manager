@@ -17,7 +17,6 @@ module EventMachine
   module ApnManager
     class CLI < Thor
       class_option :config, :aliases => ["-c"], :type => :string
-      class_option :environment, :aliases => ["-e"], :type => :string
 
       def initialize(args = [], opts = [], config = {})
         super(args, opts, config)
@@ -27,11 +26,11 @@ module EventMachine
         if config_path && File.exists?(config_path)
           EM::ApnManager.config = Thor::CoreExt::HashWithIndifferentAccess.new(YAML.load_file(config_path))
         else
-          raise "No config file is specified or specified config file doesn't exist."
+          puts "No config file is specified or specified config file doesn't exist."
         end
 
         # read the environment var.
-        @environment = "test"
+        @environment = ENV["RAILS_ENV"] || "development"
         @environment = options[:environment] if %w{test development production}.include? options[:environment]
 
         # create redis connection
@@ -43,7 +42,7 @@ module EventMachine
       # option :pid_file,     :aliases => ["-p"], :type => :string
       def server
         EM::ApnManager.logger.info("Starting APN Manager")
-        EM.run { EM::ApnManager::Manager.run env: @environment }
+        EM.run { EM::ApnManager::Manager.run }
       end
 
       ### For Testing ##################################################
@@ -52,6 +51,7 @@ module EventMachine
       def push_test_message
         10.times do |i|
           EM::ApnManager.push_notification({
+            env: 'development',
             cert: File.read(ENV["APN_CERT"]),
             token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B","D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
             message: "Hahahaha I am going to spam you. #{i}-#{rand * 100}"

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 require 'em_apn_manager/cli'
 
 EM::ApnManager::CLI.start(ARGV)

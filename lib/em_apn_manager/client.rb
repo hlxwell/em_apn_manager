@@ -20,10 +20,10 @@ module EventMachine
       end
 
       def initialize(options = {})
-        @cert = options[:cert] || ENV["APN_CERT"]
+        @cert = options[:cert]
         @port = options[:port] || PORT
         @environment = options[:env]
-        @gateway = options[:gateway] || ENV["APN_GATEWAY"]
+        @gateway = options[:gateway]
         @gateway ||=  case @environment
                       when "test"
                         TEST_GATEWAY

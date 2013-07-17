@@ -13,6 +13,7 @@ module EventMachine
     def push_notification options = {}
       # FIXME Check options
       $apn_manager_redis.publish "push-notification", {
+        env: options[:env],
         cert: options[:cert],
         token: options[:token],
         message: options[:message]

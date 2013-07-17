@@ -24,15 +24,17 @@ module EventMachine
 
         ### launch a new connect to apple when detected any pushs.
         @redis.pubsub.subscribe('push-notification') do |msg|
-          msg_hash = Yajl::Parser.parse(msg) # might be some wrong json
+          msg_hash = Yajl::Parser.parse(msg) # FIXME might be some wrong json
+
           # save the cert to local first, since the start_tls read from file.
           cert_filename = save_cert_to_file msg_hash["cert"]
+
           # cert filename is a key for connection pool
           client = $connection_pool[cert_filename]
 
           ### Create client connection if doesn't exist in pool.
           if client.nil?
-            client = EM::ApnManager::Client.new(options.merge!({cert: cert_filename}))
+            client = EM::ApnManager::Client.new(options.merge!({env: msg_hash["env"], cert: cert_filename}))
             # Store the connection to pool
             $connection_pool[cert_filename] = client
           end
@@ -54,8 +56,8 @@ module EventMachine
 
       private
 
+      # NOTICE should not put the 'certs' folder to a downloadable place.
       def save_cert_to_file cert_content
-        # TODO, should store Rails.root/tmp/certs and this folder should be protected.
         FileUtils.mkdir_p "certs"
         filename = Base64.encode64(cert_content)[0..50]
         filename = File.join "certs", filename
