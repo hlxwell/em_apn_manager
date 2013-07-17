@@ -16,8 +16,9 @@ $apn_manager_redis = nil
 module EventMachine
   module ApnManager
     class CLI < Thor
-      class_option :config, :aliases => ["-c"], :type => :string
-      class_option :redis,  :aliases => ["-R"], :type => :string
+      class_option :config,       :aliases => ["-c"], :type => :string
+      class_option :environment,  :aliases => ["-e"], :type => :string
+      class_option :redis,        :aliases => ["-r"], :type => :string
 
       ### 3 ways to specify the redis
       # 1. config yml file
@@ -49,9 +50,12 @@ module EventMachine
       end
 
       desc "server", "Start manager server."
-      # option :daemon,       :aliases => ["-d"], :type => :boolean
-      # option :pid_file,     :aliases => ["-p"], :type => :string
+      option :daemon,       :aliases => ["-d"], :type => :boolean
+      option :pid_file,     :aliases => ["-p"], :type => :string
       def server
+        daemonize if options[:daemon]
+        write_pid_file(options[:pid_file]) if options[:pid_file]
+
         EM::ApnManager.logger.info("Starting APN Manager")
         EM.run { EM::ApnManager::Manager.run }
       end
@@ -74,6 +78,26 @@ module EventMachine
       def mock_apn_server
         EM::ApnManager.logger.info("Starting Mock APN Server")
         EM.run { EM.start_server("127.0.0.1", 2195, EM::ApnManager::ApnServer) }
+      end
+
+      private
+
+      # Daemonize process (ruby >= 1.9 only)
+      # @return [void] Ruby ~>1.8
+      # @return [0] Ruby 1.9+ (see Process::daemon)
+      # @raise [Errno] on failure
+      def daemonize
+        if Process.respond_to?(:daemon)
+          Process.daemon(true, true)
+        else
+          Kernel.warn "Running process as daemon requires ruby >= 1.9"
+        end
+      end
+
+      # Save worker's pid to file
+      # @return [void]
+      def write_pid_file(path = nil)
+        File.open(path, 'w'){ |f| f << Process.pid } if path
       end
     end
   end
