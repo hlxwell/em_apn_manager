@@ -16,7 +16,7 @@ Steps for running `Standalone`:
 
 1. Run `gem install em_apn_manager`
 
-2. Run `em_apn_manager server --redis-host 127.0.0.1 --redis-port 6379` or `em_apn_manager server --config CONFIG_FILE_PATH`
+2. Run `em_apn_manager server -r redis://localhost:6379/em_apn_manager` or `em_apn_manager server -c CONFIG_FILE_PATH -e development`
 
 Put below line to your code for sending push notification:
 
@@ -29,12 +29,13 @@ Put below line to your code for sending push notification:
 
 Running server in background:
 
-`em_apn_manager server --daemon`
+`em_apn_manager server --daemon --pid_file /PATH/TO/PID` or `em_apn_manager server -d -p /PATH/TO/PID`
 
 Generate pem from p12
 ==================
 
 This is how you get `p12` file:
+
 http://docs.urbanairship.com/build/ios.html#set-up-your-application-with-apple
 
 You have to convert p12 format to pem format by below command line.
