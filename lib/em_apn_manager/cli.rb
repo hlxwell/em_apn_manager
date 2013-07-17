@@ -17,24 +17,35 @@ module EventMachine
   module ApnManager
     class CLI < Thor
       class_option :config, :aliases => ["-c"], :type => :string
+      class_option :redis,  :aliases => ["-R"], :type => :string
 
+      ### 3 ways to specify the redis
+      # 1. config yml file
+      # 2. pass redis-url is 'redis://username:password@host:port/database'
+      # like `redis://test:test@localhost:6379/em_apn_manager`
+      #
       def initialize(args = [], opts = [], config = {})
         super(args, opts, config)
 
-        # Read config option, or use default config yml
-        config_path = options[:config] || File.join(".", "config", "em_apn_manager.yml")
-        if config_path && File.exists?(config_path)
-          EM::ApnManager.config = Thor::CoreExt::HashWithIndifferentAccess.new(YAML.load_file(config_path))
-        else
-          puts "No config file is specified or specified config file doesn't exist."
+        redis_config = options[:redis]
+        if redis_config.nil?
+          # read the environment var.
+          @environment = ENV["RAILS_ENV"] || "development"
+          @environment = options[:environment] if %w{test development production}.include? options[:environment]
+
+          # Read config option, or use default config yml
+          config_path = options[:config] || File.join(".", "config", "em_apn_manager.yml")
+          if config_path && File.exists?(config_path)
+            EM::ApnManager.config = Thor::CoreExt::HashWithIndifferentAccess.new(YAML.load_file(config_path))
+            redis_config = EM::ApnManager.config[@environment]
+          end
+
+          # default redis
+          redis_config ||= "redis://localhost:6379/em_apn_manager"
         end
 
-        # read the environment var.
-        @environment = ENV["RAILS_ENV"] || "development"
-        @environment = options[:environment] if %w{test development production}.include? options[:environment]
-
         # create redis connection
-        $apn_manager_redis = Redis.new EM::ApnManager.config[@environment] || { host:"127.0.0.1", port:6379 }
+        $apn_manager_redis = Redis.new url: redis_config
       end
 
       desc "server", "Start manager server."
@@ -51,9 +62,9 @@ module EventMachine
       def push_test_message
         10.times do |i|
           EM::ApnManager.push_notification({
-            env: 'development',
-            cert: File.read(ENV["APN_CERT"]),
-            token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B","D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
+            env: 'test',
+            cert: File.read(ENV["APN_CERT"]), # test cert
+            token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B", "D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
             message: "Hahahaha I am going to spam you. #{i}-#{rand * 100}"
           })
         end

@@ -2,4 +2,5 @@
 
 require 'em_apn_manager/cli'
 
+### When in development mode run this `ruby -Ilib ./bin/em_apn_manager`
 EM::ApnManager::CLI.start(ARGV)
