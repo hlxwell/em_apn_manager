@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-gemspec
+gem "eventmachine"
+gem "em-hiredis"
+gem "redis"
+gem "thor"
+gem "yajl-ruby"
 
 group :development do
   gem "shoulda"

@@ -13,7 +13,6 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "em_apn_manager"
   gem.homepage = "http://github.com/hlxwell/em_apn_manager"
   gem.license = "MIT"
@@ -21,14 +20,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{EventMachine multiple APNs connections Management Solution. You can use multiple cert and connection to apple's APNs server.}
   gem.email = "m.he@skillupjapan.co.jp"
   gem.authors = ["Michael He"]
-
-  # dependencies defined in Gemfile
-  gem.add_runtime_dependency "thor",         "~> 0.16"
-  gem.add_runtime_dependency "eventmachine", ">= 1.0.0"
-  gem.add_runtime_dependency "yajl-ruby",    ">= 0.8.2"
-  gem.add_runtime_dependency "redis",        ">= 2.2.0"
-  gem.add_runtime_dependency "em-hiredis",   ">= 0.2.1"
-  gem.add_development_dependency "rspec", "~> 2.6.0"
 end
 Jeweler::RubygemsDotOrgTasks.new
 

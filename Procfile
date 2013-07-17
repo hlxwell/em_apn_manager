@@ -1,1 +1,1 @@
-web: bundle exec ruby server.rb
+web: ./bin/em_apn_manager server
