@@ -3,10 +3,14 @@ EventMachine APN Manager
 
 EventMachine APN Connection Manager, The purpose is to support multiple cert and multiple application with one process.
 
-Steps to use this gem.
+Steps to use this gem:
+
 1. Add `gem 'em_apn_manager', git: 'git@github.com:hlxwell/em_apn_manager.git'`
+
 2. Run `bundle exec rails g event_machine:apn_manager:install` to generate 'config/em_apn_manager.yml' file.
-3. Run `bundle exec em_apn_manager -e development`
+
+3. Run `bundle exec em_apn_manager server -e development`
+
 4. Put this in your code
 `EM::ApnManager.push_notification({
   cert: READ_YOUR_CERT_CONTENT,
