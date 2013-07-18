@@ -64,14 +64,18 @@ module EventMachine
       desc "push_test_message", "Push test messages to server."
       # if message is DISCONNECT, mock apns will disconnect.
       def push_test_message
-        10.times do |i|
-          EM::ApnManager.push_notification({
-            env: @environment,
-            cert: File.read(ENV["APN_CERT"]), # test cert
-            token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B", "D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
-            message: "Hahahaha I am going to spam you. #{i}-#{rand * 100}"
-          })
-        end
+        EM::ApnManager.push_notification({
+          env: @environment,
+          cert: File.read(ENV["APN_CERT"]), # test cert
+          # iPhone5
+          # "D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"
+          # iPhone4
+          # "BACF565FB283E9F7378D5A0AEBCBCB49A4D7834AED8FAC7FE0CB28144D94E456"
+          # My iPhone4s
+          # "0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B"
+          token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B"].sample,
+          message: "Hahahaha I am going to spam you. #{rand * 100}"
+        })
       end
 
       desc "mock_apn_server", "Start a mock apple APNS Server."

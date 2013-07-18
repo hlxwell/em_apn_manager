@@ -27,17 +27,17 @@ module EventMachine
         )
       end
 
-      def connection_completed
-        EM::ApnManager.logger.info("Connection completed")
-
-        client.open_callback.call if client.open_callback
-      end
-
       def receive_data(data)
         data_array = data.unpack("ccN")
         error_response = ErrorResponse.new(*data_array)
         EM::ApnManager.logger.warn(error_response.to_s)
         client.error_callback.call(error_response) if client.error_callback
+      end
+
+      def connection_completed
+        EM::ApnManager.logger.info("Connection completed")
+
+        client.open_callback.call if client.open_callback
       end
 
       def unbind
