@@ -66,7 +66,7 @@ module EventMachine
       def push_test_message
         10.times do |i|
           EM::ApnManager.push_notification({
-            env: 'test',
+            env: @environment,
             cert: File.read(ENV["APN_CERT"]), # test cert
             token: ["0F93C49EAAF3544B5218D2BAE893608C515F69B445279AB2B17511C37046C52B", "D42A6795D0C6C0E5F3CC762F905C3654D2A07E72D64CDEC1E2F74AC43C4CC440"].sample,
             message: "Hahahaha I am going to spam you. #{i}-#{rand * 100}"
