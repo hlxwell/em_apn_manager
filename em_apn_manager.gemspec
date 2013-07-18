@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael He"]
-  s.date = "2013-07-17"
+  s.date = "2013-07-18"
   s.description = "EventMachine multiple APNs connections Management Solution. You can use multiple cert and connection to apple's APNs server."
   s.email = "m.he@skillupjapan.co.jp"
   s.executables = ["em_apn_manager"]
