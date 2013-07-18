@@ -59,7 +59,8 @@ module EventMachine
       # NOTICE should not put the 'certs' folder to a downloadable place.
       def save_cert_to_file cert_content
         FileUtils.mkdir_p "certs"
-        filename = Base64.encode64(cert_content)[0..50]
+
+        filename = Digest::SHA1.hexdigest(cert_content)
         filename = File.join "certs", filename
         return filename if File.exist?(filename)
 
