@@ -18,8 +18,7 @@ module EventMachine
       end
 
       def post_init
-        EM::ApnManager.logger.info("Connecting...")
-
+        EM::ApnManager.logger.info("Connecting... #{client.gateway} for #{client.environment}")
         start_tls(
           :private_key_file => client.cert,
           :cert_chain_file  => client.cert,

@@ -34,7 +34,8 @@ module EventMachine
 
           ### Create client connection if doesn't exist in pool.
           if client.nil?
-            client = EM::ApnManager::Client.new({env: msg_hash["env"], cert: cert_filename}.merge! options)
+            opts = {:env => msg_hash["env"], :cert => cert_filename}
+            client = EM::ApnManager::Client.new(options.merge(opts))
             # Store the connection to pool
             $connection_pool[cert_filename] = client
           end
