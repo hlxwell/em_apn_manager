@@ -57,7 +57,7 @@ module EventMachine
         write_pid_file(options[:pid_file]) if options[:pid_file]
 
         EM::ApnManager.logger.info("Starting APN Manager")
-        EM.run { EM::ApnManager::Manager.run }
+        EM.run { EM::ApnManager::Manager.run options }
       end
 
       ### For Testing ##################################################

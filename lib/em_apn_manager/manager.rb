@@ -20,7 +20,7 @@ module EventMachine
 
       # options = {gateway, port}
       def run options = {}
-        @redis = EM::Hiredis.connect
+        @redis = EM::Hiredis.connect options[:redis]
 
         ### launch a new connect to apple when detected any pushs.
         @redis.pubsub.subscribe('push-notification') do |msg|
@@ -34,7 +34,7 @@ module EventMachine
 
           ### Create client connection if doesn't exist in pool.
           if client.nil?
-            client = EM::ApnManager::Client.new(options.merge!({env: msg_hash["env"], cert: cert_filename}))
+            client = EM::ApnManager::Client.new({env: msg_hash["env"], cert: cert_filename}.merge! options)
             # Store the connection to pool
             $connection_pool[cert_filename] = client
           end
