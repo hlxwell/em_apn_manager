@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "em_apn_manager"
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael He"]
-  s.date = "2013-07-18"
+  s.date = "2013-07-24"
   s.description = "EventMachine multiple APNs connections Management Solution. You can use multiple cert and connection to apple's APNs server."
   s.email = "m.he@skillupjapan.co.jp"
   s.executables = ["em_apn_manager"]
