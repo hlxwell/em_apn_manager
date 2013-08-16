@@ -21,6 +21,18 @@ module EventMachine
       # options = {gateway, port}
       def run options = {}
         @redis = EM::Hiredis.connect options[:redis]
+        @redis.on :connected do
+          puts "connected"
+        end
+        @redis.on :closed do
+          puts "closed"
+        end
+        @redis.on :disconnected do
+          puts "disconnected"
+        end
+        @redis.on :reconnect_failed do
+          puts "reconnect_failed"
+        end
 
         ### launch a new connect to apple when detected any pushs.
         @redis.pubsub.subscribe('push-notification') do |msg|
